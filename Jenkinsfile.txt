@@ -1,0 +1,53 @@
+pipeline {
+    agent {label 'maven'} 
+  
+    tools {
+        maven 'M2_HOME' 
+    }
+     
+    stages {
+          		
+        stage('Recap_GIT'){
+            steps{
+                echo 'github';
+                git branch: 'main',
+                    url:'https://github.com/ilyeso/gesTrain.git',
+                    credentialsId:'git_credential'
+            }
+        }
+        stage('buildART'){
+            steps{
+               sh 'mvn clean package'
+            }
+        }
+        stage('UNIT/MOCKITO'){
+            steps{
+               sh 'mvn clean test -Ptest'
+            }
+        }
+        stage('SONAR'){
+            steps{
+                   sh 'mvn sonar:sonar  -Dsonar.login=admin -Dsonar.password=123'
+               
+            }
+        }
+        stage('upload Jar Nexus'){
+            steps{
+                nexusArtifactUploader artifacts: [
+                    [artifactId: 'tpAchatProject',
+                    classifier: '',
+                    file: 'target/tpAchatProject-1.0.jar',
+                    type: 'jar'
+                    ]
+                ],
+                credentialsId: 'nexus3',
+                groupId: 'com.esprit.examen',
+                nexusUrl: '192.168.1.18:8081',
+                nexusVersion: 'nexus3',
+                protocol: 'http',
+                repository: 'http://192.168.1.18:8081/repository/simpleapp-release/',
+                version: '1.0'
+            }
+        }
+    }   
+}
