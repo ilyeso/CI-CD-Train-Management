@@ -12,7 +12,7 @@ pipeline {
                 echo 'github';
                 git branch: 'main',
                     url:'https://github.com/ilyeso/gesTrain.git',
-                    credentialsId:'git_credential'
+                    credentialsId:'23196899-23b0-4697-b8fe-2d7027099070'
             }
         }
         stage('buildART'){
@@ -34,14 +34,14 @@ pipeline {
         stage('upload Jar Nexus'){
             steps{
                 nexusArtifactUploader artifacts: [
-                    [artifactId: 'tpAchatProject',
+                    [artifactId: 'ExamThourayaS2',
                     classifier: '',
-                    file: 'target/tpAchatProject-1.0.jar',
+                    file: 'target/ExamThourayaS2-1.0.jar',
                     type: 'jar'
                     ]
                 ],
                 credentialsId: 'nexus3',
-                groupId: 'com.esprit.examen',
+                groupId: 'tn.espri',
                 nexusUrl: '192.168.1.18:8081',
                 nexusVersion: 'nexus3',
                 protocol: 'http',
