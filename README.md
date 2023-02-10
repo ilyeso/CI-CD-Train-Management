@@ -1,4 +1,4 @@
-# gesTrain
+# Train Management Application
 Train management application of the national railway company
 
 ## DevOps project : CI/CD pipeline.
