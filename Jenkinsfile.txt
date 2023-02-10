@@ -12,7 +12,7 @@ pipeline {
                 echo 'github';
                 git branch: 'main',
                     url:'https://github.com/ilyeso/gesTrain.git',
-                    credentialsId:'23196899-23b0-4697-b8fe-2d7027099070'
+                    credentialsId:'******'
             }
         }
         stage('buildART'){
@@ -45,7 +45,7 @@ pipeline {
                 nexusUrl: '192.168.1.18:8081',
                 nexusVersion: 'nexus3',
                 protocol: 'http',
-                repository: 'http://192.168.1.18:8081/repository/simpleapp-release/',
+                repository: 'localhost://repository/simpleapp-release/',
                 version: '1.0'
             }
         }
